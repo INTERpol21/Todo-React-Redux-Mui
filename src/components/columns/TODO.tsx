@@ -1,8 +1,8 @@
 import Typography from '@mui/material/Typography';
 import {useSelector} from 'react-redux';
 import {StoreState} from '../../redux/store';
-import {ColumnLayout} from "../ColumnLayout";
 import {todoSlice} from "../../redux/slice/TODO";
+import ColumnLayout from "../ColumnLayout";
 
 
 export function ToDoColumn() {

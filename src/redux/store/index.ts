@@ -9,8 +9,9 @@ export const store = configureStore({
     reducer:combineReducers({
         done:doneSlice.reducer,
         inProgress:inProgressSlice.reducer,
+        testing:testingSlice.reducer,
         todo:todoSlice.reducer,
-        testing:testingSlice.reducer
+
 
     })
 })
