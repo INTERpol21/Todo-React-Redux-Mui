@@ -19,241 +19,245 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {Draggable, Droppable} from "react-beautiful-dnd";
 
 
-const ColumnLayout: React.FC<IColumnLayoutProps> = ({
+const ColumnLayout: React.FC<IColumnLayoutProps> =
+    ({
+         labelText,
+         addHandler,
+         removeHandler,
+         completedHandler,
+         selectorState,
+         droppableId,
+         updateTextShowed,
+     }) => {
 
-                                                        labelText,
-                                                        addHandler,
-                                                        removeHandler,
-                                                        completedHandler,
-                                                        selectorState,
-                                                        droppableId,
-                                                        updateTextShowed,
-                                                    }) => {
-    const [isError, setIsError] = useState({
-        isShow: false,
-        text: '',
-    });
-
-    const [textDescription, setTextDescription] = useState('');
-    const dispatch = useDispatch<StoreDispatch>();
-
-    const handleOnChange = ({
-                                target: {value},
-                            }: React.ChangeEvent<HTMLInputElement>) => {
-        setTextDescription(value);
-
-        setIsError({
-            isShow: value.length > 200,
-            text:
-                value.length > 200
-                    ? 'The input value cannot be more than 200 characters'
-                    : '',
+        const [isError, setIsError] = useState({
+            isShow: false,
+            text: '',
         });
-    };
 
-    const handleOnBlur = () => {
-        setIsError({...isError, isShow: false});
-    };
+        const [textDescription, setTextDescription] = useState('');
+        const dispatch = useDispatch<StoreDispatch>();
 
-    const handleOnClick = () => {
-        if (!isError.isShow) {
-            dispatch(addHandler(textDescription));
-            setTextDescription('');
-        }
-    };
+        const handleOnChange = ({
+                                    target: {value},
+                                }: React.ChangeEvent<HTMLInputElement>) => {
+            setTextDescription(value);
 
-    const handleInputKeyDown = ({
-                                    target,
-                                    key,
-                                }: React.KeyboardEvent<HTMLInputElement>) => {
-        if (key === 'Enter') {
-            if (
-                (target as HTMLInputElement).value.length > 0 &&
-                (target as HTMLInputElement).value.length <= 200
-            ) {
-                handleOnClick();
-            } else {
-                setIsError({
-                    isShow: true,
-                    text: 'The input value cannot be empty',
-                });
+            setIsError({
+                isShow: value.length > 200,
+                text:
+                    value.length > 200
+                        ? 'The input value cannot be more than 200 characters'
+                        : '',
+            });
+        };
+
+        const handleOnBlur = () => {
+            setIsError({...isError, isShow: false});
+        };
+
+        const handleOnClick = () => {
+            if (!isError.isShow) {
+                dispatch(addHandler(textDescription));
+                setTextDescription('');
             }
-        }
-    };
+        };
+
+        const handleInputKeyDown = ({
+                                        target,
+                                        key,
+                                    }: React.KeyboardEvent<HTMLInputElement>) => {
+            if (key === 'Enter') {
+                if (
+                    (target as HTMLInputElement).value.length > 0 &&
+                    (target as HTMLInputElement).value.length <= 200
+                ) {
+                    handleOnClick();
+                } else {
+                    setIsError({
+                        isShow: true,
+                        text: 'The input value cannot be empty',
+                    });
+                }
+            }
+        };
 
 
-    const [name, setName] = useState(labelText);
-    const [isDisabled, setIsDisabled] = useState(false);
 
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
-    };
-
-    const handleClick = () => {
-        setIsDisabled(!isDisabled)
-    };
-    return (
-
-        <>
-            <div>
-                <Input type="text"
-                       id="todo"
-                       value={name}
-                       onChange={handleChange}
-                       disabled={isDisabled}
-                       onDoubleClickCapture={handleClick}/>
-            </div>
-            <Box borderRadius={1} width='100%' sx={{boxShadow: 2, p: 3}}>
+        //Work with state label!!!
+        const [name, setName] = useState(labelText);
+        const [isDisabled, setIsDisabled] = useState(false);
+        const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+            setName(event.target.value);
+        };
+        const handleClick = () => {
+            setIsDisabled(!isDisabled)
+        };
 
 
-                <TextField
-                    fullWidth
-                    label={name}
-                    onChange={handleOnChange}
-                    onBlur={handleOnBlur}
-                    onKeyDown={handleInputKeyDown}
-                    value={textDescription}
-                    variant='outlined'
-                    size='small'/>
+        return (
 
-                <Collapse in={isError.isShow}>
-                    <Alert severity='error' sx={{my: 1}}>
-                        {isError.text}
-                    </Alert>
-                </Collapse>
+            <>
+                {/*Work with state label!!!*/}
+                <div>
+                    <Input type="text"
+                           id="todo"
+                           value={name}
+                           onChange={handleChange}
+                           disabled={isDisabled}
+                           onDoubleClickCapture={handleClick}/>
+                </div>
+                <Box borderRadius={1} width='100%' sx={{boxShadow: 2, p: 3}}>
 
-                <Box width='100%' display='flex' justifyContent='center'>
-                    <Button
-                        size='medium'
-                        sx={{my: 1, maxWidth: 200}}
-                        variant='outlined'
-                        color='primary'
+
+                    <TextField
                         fullWidth
-                        onClick={handleOnClick}
-                        onKeyDown={({key}) => key === 'Enter' && handleOnClick()}
-                        disabled={textDescription.length === 0 || textDescription.length > 200}
-                    >
-                        Add Item
-                    </Button>
-                </Box>
-                <Droppable droppableId={droppableId}>
-                    {(provided) => (
-                        <List
-                            sx={{
-                                minHeight: '300px',
-                                li: {
-                                    flexDirection: 'column',
-                                },
-                                '& .MuiListItemText-root': {
-                                    width: '100%',
-                                },
-                            }}
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
+                        label={name}
+                        onChange={handleOnChange}
+                        onBlur={handleOnBlur}
+                        onKeyDown={handleInputKeyDown}
+                        value={textDescription}
+                        variant='outlined'
+                        size='small'/>
+
+                    <Collapse in={isError.isShow}>
+                        <Alert severity='error' sx={{my: 1}}>
+                            {isError.text}
+                        </Alert>
+                    </Collapse>
+
+                    <Box width='100%' display='flex' justifyContent='center'>
+                        <Button
+                            size='medium'
+                            sx={{my: 1, maxWidth: 200}}
+                            variant='outlined'
+                            color='primary'
+                            fullWidth
+                            onClick={handleOnClick}
+                            onKeyDown={({key}) => key === 'Enter' && handleOnClick()}
+                            disabled={textDescription.length === 0 || textDescription.length > 200}
                         >
-                            {selectorState.map(
-                                (
-                                    {id, text, isFinished, createdAt, updatedAt, isTextShowed},
-                                    index: number
-                                ) => (
-                                    <Draggable key={id} draggableId={id} index={index}>
-                                        {(provided, snapshot) => (
-                                            <ListItem
-                                                sx={{
-                                                    transition: '.3s ease background-color',
-                                                    color: snapshot.isDragging ? '#fff' : '#000',
-                                                    bgcolor: snapshot.isDragging ? '#000' : '#fff',
-                                                    position: 'relative',
-                                                    border: '1px solid #989898',
-                                                    my: 1,
-                                                    borderRadius: '3px',
-                                                    '& .MuiTypography-root': {
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                    },
-                                                }}
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                            >
-                                                <ListItemText
+                            Add Item
+                        </Button>
+                    </Box>
+                    <Droppable droppableId={droppableId}>
+                        {(provided) => (
+                            <List
+                                sx={{
+                                    minHeight: '300px',
+                                    li: {
+                                        flexDirection: 'column',
+                                    },
+                                    '& .MuiListItemText-root': {
+                                        width: '100%',
+                                    },
+                                }}
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                            >
+                                {selectorState.map(
+                                    (
+                                        {id, text, isFinished, createdAt, updatedAt, isTextShowed},
+                                        index: number
+                                    ) => (
+                                        <Draggable key={id} draggableId={id} index={index}>
+                                            {(provided, snapshot) => (
+                                                <ListItem
                                                     sx={{
-                                                        textDecoration: isFinished ? 'line-through' : 'none',
-                                                        wordBreak: 'break-word',
+                                                        transition: '.3s ease background-color',
+                                                        color: snapshot.isDragging ? '#fff' : '#000',
+                                                        bgcolor: snapshot.isDragging ? '#000' : '#fff',
+                                                        position: 'relative',
+                                                        border: '1px solid #989898',
+                                                        my: 1,
+                                                        borderRadius: '3px',
+                                                        '& .MuiTypography-root': {
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                        },
                                                     }}
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
                                                 >
-                                                    <IconButton
-                                                        sx={{p: 1, mr: 1}}
-                                                        onClick={() => dispatch(
-                                                            updateTextShowed({
-                                                                id,
-                                                                isTextShowed: !isTextShowed,
-                                                            })
-                                                        )}
+                                                    <ListItemText
+                                                        sx={{
+                                                            textDecoration: isFinished ? 'line-through' : 'none',
+                                                            wordBreak: 'break-word',
+                                                        }}
                                                     >
-                                                        <ArrowDownwardIcon
-                                                            sx={{
-                                                                color: snapshot.isDragging ? '#fff' : '#000',
-                                                                transform: !isTextShowed ? 'rotate(180deg)' : '',
-                                                            }}/>
-                                                    </IconButton>
-
-                                                    <Box
-                                                        component='span'
-                                                        width='100%'
-                                                        position='absolute'
-                                                        top='0'
-                                                        fontSize='.7rem'
-                                                    >
-                                                        {updatedAt ? 'Updated' : 'Created'} at:{' '}
-                                                        {updatedAt || createdAt}
-                                                    </Box>
-
-                                                    <Box component='span' width='100%'>
-                                                        {text}
-                                                    </Box>
-
-                                                    <Box display='flex' component='span'>
                                                         <IconButton
-                                                            onClick={() => dispatch(removeHandler(id))}
+                                                            sx={{p: 1, mr: 1}}
+                                                            onClick={() => dispatch(
+                                                                updateTextShowed({
+                                                                    id,
+                                                                    isTextShowed: !isTextShowed,
+                                                                })
+                                                            )}
                                                         >
-                                                            <DeleteIcon
+                                                            <ArrowDownwardIcon
                                                                 sx={{
                                                                     color: snapshot.isDragging ? '#fff' : '#000',
+                                                                    transform: !isTextShowed ? 'rotate(180deg)' : '',
                                                                 }}/>
                                                         </IconButton>
-                                                        <Checkbox
-                                                            edge='end'
-                                                            value={isFinished}
-                                                            checked={isFinished}
-                                                            inputProps={{'aria-label': 'controlled'}}
-                                                            onChange={() => dispatch(
-                                                                completedHandler({
-                                                                    isFinished: !isFinished,
-                                                                    id,
-                                                                    updatedAt: new Date().toLocaleString(),
-                                                                })
-                                                            )}/>
-                                                    </Box>
-                                                </ListItemText>
-                                                <Collapse in={isTextShowed}>
-                                                    You can add here some content{' '}
-                                                    <span role='img' aria-label='emoji'>
+
+                                                        <Box
+                                                            component='span'
+                                                            width='100%'
+                                                            position='absolute'
+                                                            top='0'
+                                                            fontSize='.7rem'
+                                                        >
+                                                            {updatedAt ? 'Updated' : 'Created'} at:{' '}
+                                                            {updatedAt || createdAt}
+                                                        </Box>
+
+                                                        <Box component='span' width='100%'>
+                                                            {text}
+                                                        </Box>
+
+                                                        <Box display='flex' component='span'>
+                                                            <IconButton
+                                                                onClick={() => dispatch(removeHandler(id))}
+                                                            >
+                                                                <DeleteIcon
+                                                                    sx={{
+                                                                        color: snapshot.isDragging ? '#fff' : '#000',
+                                                                    }}/>
+                                                            </IconButton>
+                                                            <Checkbox
+                                                                edge='end'
+                                                                value={isFinished}
+                                                                checked={isFinished}
+                                                                inputProps={{'aria-label': 'controlled'}}
+                                                                onChange={() => dispatch(
+                                                                    completedHandler({
+                                                                        isFinished: !isFinished,
+                                                                        id,
+                                                                        updatedAt: new Date().toLocaleString(),
+                                                                    })
+                                                                )}/>
+                                                        </Box>
+                                                    </ListItemText>
+                                                    <Collapse in={isTextShowed}>
+                                                        You can add here some content{' '}
+                                                        <span role='img' aria-label='emoji'>
                                                         😍
                                                     </span>
-                                                </Collapse>
-                                            </ListItem>
-                                        )}
-                                    </Draggable>
-                                )
-                            )}
-                            {provided.placeholder}
-                        </List>
-                    )}
-                </Droppable>
-            </Box></>
-    );
-};
+                                                    </Collapse>
+                                                </ListItem>
+                                            )}
+                                        </Draggable>
+                                    )
+                                )}
+                                {provided.placeholder}
+                            </List>
+                        )}
+                    </Droppable>
+                </Box></>
+        );
+    };
 
 export default ColumnLayout;
