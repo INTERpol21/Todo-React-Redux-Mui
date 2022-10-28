@@ -20,6 +20,7 @@ import {Draggable, Droppable} from "react-beautiful-dnd";
 
 
 const ColumnLayout: React.FC<IColumnLayoutProps> = ({
+
                                                         labelText,
                                                         addHandler,
                                                         removeHandler,

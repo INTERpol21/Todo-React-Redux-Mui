@@ -36,7 +36,7 @@ function App() {
         } else {
             const [filterState] = (
                 (appState as any)[source.droppableId] as IModel[]
-            ).filter(({id}) => id === draggableId);
+            ).filter(({ id }) => id === draggableId);
 
             dispatch(
                 allSlices[source.droppableId as TypeSlices].actions.remove(draggableId)
@@ -49,27 +49,30 @@ function App() {
             );
         }
     };
+
+
+    // @ts-ignore
     return (
         <Container>
             {/*Загаловок*/}
             <Typography textAlign="center" variant="h3" mt={3} mb={5}>
                 This is ToDo APP with Redux
-            </Typography>
-            <Grid container spacing={2} justifyContent='center'>
+            </Typography>{' '}
+            <Grid container spacing={4} justifyContent='center'>
                 <DragDropContext onDragEnd={(res) => onDragEnd(res)}>
-                    <Grid item xs={3}>
+                    <Grid item md={3}>
                         <ToDoColumn/>
                     </Grid>
 
-                    <Grid item xs={3}>
+                    <Grid item md={3}>
                         <InProgressColumn/>
                     </Grid>
 
-                    <Grid item xs={3}>
+                    <Grid item md={3}>
                         <TestingColumn/>
                     </Grid>
 
-                    <Grid item xs={3}>
+                    <Grid item md={3}>
                         <DoneColumn/>
                     </Grid>
                 </DragDropContext>

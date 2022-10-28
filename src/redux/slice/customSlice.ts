@@ -54,6 +54,6 @@ export const createCustomSlice = (name: string) => {
 
     return {
         actions: { add, remove, completeStatus, reorder, update, updateTextShowed },
-        reducer
+        reducer,
     };
 };

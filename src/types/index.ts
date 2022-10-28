@@ -15,6 +15,8 @@ export type TUpdateTextShowed = Omit<TActionSlice, 'isFinished'>;
 
 export interface IColumnLayoutProps {
     labelText?: string;
+    label?:string;
+    defaultValue?:string;
     addHandler: (v: string) => AnyAction;
     removeHandler: (v: string) => AnyAction;
     completedHandler: (v: TActionSlice) => AnyAction;
