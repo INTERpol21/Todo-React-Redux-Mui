@@ -18,7 +18,7 @@ export function Inputs() {
     };
 
 
-    return(
+    return (
         <Input type="text"
                id="todo"
                value={name}
