@@ -241,6 +241,8 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
                                                                 )}/>
                                                         </Box>
                                                     </ListItemText>
+
+                                                    {/*Тут использовать вызов модыльного окна */}
                                                     <Collapse in={isTextShowed}>
                                                         You can add here some content{' '}
                                                         <span role='img' aria-label='emoji'>
