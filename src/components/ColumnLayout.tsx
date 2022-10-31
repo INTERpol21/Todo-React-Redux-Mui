@@ -17,7 +17,8 @@ import {
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Draggable, Droppable} from "react-beautiful-dnd";
-import Popup from "./Modal/Popup.js";
+import Popup from "./Modal/Popup";
+
 
 
 

@@ -51,7 +51,7 @@ function App() {
     };
 
 
-    // @ts-ignore
+
     return (
         <Container>
             {/*Загаловок*/}

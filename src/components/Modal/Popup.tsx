@@ -16,15 +16,15 @@ const style = {
 
 export default function Popup() {
 
-    const [name, setName] = useState("labelText");
+    const [name, setName] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
     };
-
-    const handleClick = () => {
-        setIsDisabled(!isDisabled)
-    };
+    //
+    // const handleClick = () => {
+    //     setIsDisabled(!isDisabled)
+    // };
 
 
 
@@ -55,8 +55,8 @@ export default function Popup() {
                         <Input type="text"
                                id="todo"
                                value={name}
+                               // onChange={handleChange}
                                onChange={handleChange}
-
                         />
                     </Box>
                     <TextField
