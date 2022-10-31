@@ -7,6 +7,7 @@ export interface IModel {
     createdAt?: string;
     updatedAt?: string;
     isTextShowed?: boolean;
+    description?:string
 }
 
 //Omit принимает тип и объединение ключей, после чего возвращает новый тип, из которого исключены свойства, описанные ключами
@@ -15,6 +16,8 @@ export type TActionSlice = Omit<IModel, 'text'>;
 export type TUpdateTextShowed = Omit<TActionSlice, 'isFinished'>;
 
 export interface IColumnLayoutProps {
+    handleChangeDescription?:any
+    text?:string
     labelText?: string;
     label?: string;
     defaultValue?: string;

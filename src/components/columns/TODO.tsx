@@ -5,6 +5,8 @@ import {todoSlice} from "../../redux/slice/TODO";
 import ColumnLayout from "../ColumnLayout";
 
 import React, {useState} from "react";
+import BasicModal from "../Modal/Popup.js";
+import Popup from "../Modal/Popup.js";
 
 
 export function ToDoColumn() {
@@ -17,11 +19,14 @@ export function ToDoColumn() {
     const [name, setName] = useState("ToDo");
 
 
+    // const [description, setDescription] = useState('')
+
     return (
         <>
             <Typography mb={3}>All {name} tasks: {todo.length}</Typography>
 
             <ColumnLayout
+
                 droppableId='todo'
                 labelText={name}
                 completedHandler={completeStatus}
@@ -29,7 +34,9 @@ export function ToDoColumn() {
                 addHandler={add}
                 selectorState={todo}
                 updateTextShowed={updateTextShowed}
+
             />
+
         </>
     );
 }

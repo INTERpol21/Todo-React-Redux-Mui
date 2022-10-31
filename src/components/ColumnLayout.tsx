@@ -1,5 +1,5 @@
 import {IColumnLayoutProps} from "../types";
-import React, {useState} from "react";
+import React, { useState} from "react";
 import {useDispatch} from "react-redux";
 import {StoreDispatch} from "../redux/store";
 import {
@@ -17,10 +17,17 @@ import {
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Draggable, Droppable} from "react-beautiful-dnd";
+import Popup from "./Modal/Popup.js";
+
+
+
+
 
 
 const ColumnLayout: React.FC<IColumnLayoutProps> =
+
     ({
+
          labelText,
          addHandler,
          removeHandler,
@@ -29,6 +36,10 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
          droppableId,
          updateTextShowed,
      }) => {
+
+
+
+
 
         const [isError, setIsError] = useState({
             isShow: false,
@@ -83,22 +94,36 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
         };
 
 
-
-
         //Work with state label!!!
         const [name, setName] = useState(labelText);
         const [isDisabled, setIsDisabled] = useState(false);
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             setName(event.target.value);
         };
+
         const handleClick = () => {
             setIsDisabled(!isDisabled)
         };
 
 
+
+
+        //Popup
+        // const [open, setOpen] = React.useState(false);
+        // const handleOpen = () => setOpen(true);
+        // const handleClose = () => setOpen(false);
+        //
+        // const [description, setDescription] = React.useState(text)
+        // const handleChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
+        //     setDescription(event.target.value);
+        // };
+
+
+
         return (
 
             <>
+
                 {/*Work with state label!!!*/}
                 <div>
                     <Input type="text"
@@ -120,6 +145,10 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
                         value={textDescription}
                         variant='outlined'
                         size='small'/>
+
+
+
+
 
                     <Collapse in={isError.isShow}>
                         <Alert severity='error' sx={{my: 1}}>
@@ -187,7 +216,9 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
                                                             wordBreak: 'break-word',
                                                         }}
                                                     >
+                                                        {/*функционал и настройки стрелочки(Icon)*/}
                                                         <IconButton
+
                                                             sx={{p: 1, mr: 1}}
                                                             onClick={() => dispatch(
                                                                 updateTextShowed({
@@ -196,25 +227,30 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
                                                                 })
                                                             )}
                                                         >
+                                                            {/*Иконка стрелочки вниз*/}
+
                                                             <ArrowDownwardIcon
+
                                                                 sx={{
                                                                     color: snapshot.isDragging ? '#fff' : '#000',
                                                                     transform: !isTextShowed ? 'rotate(180deg)' : '',
                                                                 }}/>
                                                         </IconButton>
 
+
                                                         <Box
                                                             component='span'
                                                             width='100%'
                                                             position='absolute'
                                                             top='0'
-                                                            fontSize='.7rem'
+                                                            fontSize='.6rem'
+                                                            paddingBottom=".8rem"
                                                         >
                                                             {updatedAt ? 'Updated' : 'Created'} at:{' '}
                                                             {updatedAt || createdAt}
                                                         </Box>
 
-                                                        <Box component='span' width='100%'>
+                                                        <Box component='span' width='100%' margin="0.5rem 0 0 0 ">
                                                             {text}
                                                         </Box>
 
@@ -227,6 +263,7 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
                                                                         color: snapshot.isDragging ? '#fff' : '#000',
                                                                     }}/>
                                                             </IconButton>
+                                                            {/*Иконка отметки выполненно/нет */}
                                                             <Checkbox
                                                                 edge='end'
                                                                 value={isFinished}
@@ -244,10 +281,47 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
 
                                                     {/*Тут использовать вызов модыльного окна */}
                                                     <Collapse in={isTextShowed}>
-                                                        You can add here some content{' '}
-                                                        <span role='img' aria-label='emoji'>
-                                                        😍
-                                                    </span>
+
+                                                        <Popup />
+                                                        {/*<div>*/}
+                                                        {/*    <Button onClick={handleOpen}>Open modal</Button>*/}
+                                                        {/*    <Modal*/}
+                                                        {/*        open={open}*/}
+                                                        {/*        onClose={handleClose}*/}
+                                                        {/*        aria-labelledby="modal-modal-title"*/}
+                                                        {/*        aria-describedby="modal-modal-description"*/}
+
+                                                        {/*    >*/}
+
+                                                        {/*        <Box sx={style}>*/}
+                                                        {/*            <Input type="text"*/}
+                                                        {/*                   id="todo"*/}
+                                                        {/*                   value={name}*/}
+                                                        {/*                   onChange={handleChange}*/}
+                                                        {/*                   disabled={isDisabled}*/}
+                                                        {/*                   onDoubleClickCapture={handleClick}/>*/}
+
+                                                        {/*            /!*<Input type="text"*!/*/}
+                                                        {/*            /!*       value={description}*!/*/}
+                                                        {/*            /!*       onChange={handleChangeDescription}*!/*/}
+                                                        {/*            /!*     />*!/*/}
+
+                                                        {/*            <TextField*/}
+                                                        {/*                id="filled-multiline-flexible"*/}
+                                                        {/*                label="Description"*/}
+                                                        {/*                multiline*/}
+                                                        {/*                maxRows={4}*/}
+                                                        {/*                value={description}*/}
+                                                        {/*                variant="filled"*/}
+                                                        {/*                onChange={handleChangeDescription}*/}
+                                                        {/*                onBlur={handleOnBlur}*/}
+                                                        {/*                onKeyDown={handleInputKeyDown}*/}
+                                                        {/*            />*/}
+
+                                                        {/*        </Box>*/}
+                                                        {/*    </Modal>*/}
+                                                        {/*</div>*/}
+
                                                     </Collapse>
                                                 </ListItem>
                                             )}
@@ -258,7 +332,8 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
                             </List>
                         )}
                     </Droppable>
-                </Box></>
+                </Box>
+            </>
         );
     };
 
