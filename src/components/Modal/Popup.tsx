@@ -1,5 +1,6 @@
 import {Box, Button, Input, Modal, TextField,} from "@mui/material";
 import React, {useState} from "react";
+import {IColumnLayoutProps} from "../../types";
 
 
 const style = {
@@ -14,9 +15,9 @@ const style = {
     p: 4,
 };
 
-export default function Popup() {
+export default function Popup( ) {
 
-    const [name, setName] = useState("");
+    const [name, setName] = useState("labelText");
     const [isDisabled, setIsDisabled] = useState(false);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
@@ -55,6 +56,7 @@ export default function Popup() {
                         <Input type="text"
                                id="todo"
                                value={name}
+
                                // onChange={handleChange}
                                onChange={handleChange}
                         />

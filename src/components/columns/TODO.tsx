@@ -3,10 +3,9 @@ import {useSelector} from 'react-redux';
 import {StoreState} from '../../redux/store';
 import {todoSlice} from "../../redux/slice/TODO";
 import ColumnLayout from "../ColumnLayout";
-
 import React, {useState} from "react";
-import BasicModal from "../Modal/Popup.js";
-import Popup from "../Modal/Popup.js";
+
+
 
 
 export function ToDoColumn() {
@@ -36,6 +35,7 @@ export function ToDoColumn() {
                 updateTextShowed={updateTextShowed}
 
             />
+
 
         </>
     );

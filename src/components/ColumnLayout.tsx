@@ -232,7 +232,7 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
 
                                                             <ArrowDownwardIcon
 
-                                                                sx={{
+                                                                 sx={{
                                                                     color: snapshot.isDragging ? '#fff' : '#000',
                                                                     transform: !isTextShowed ? 'rotate(180deg)' : '',
                                                                 }}/>
@@ -283,7 +283,7 @@ const ColumnLayout: React.FC<IColumnLayoutProps> =
                                                     {/*Тут использовать вызов модыльного окна */}
                                                     <Collapse in={isTextShowed}>
 
-                                                        <Popup />
+                                                        <Popup  />
                                                         {/*<div>*/}
                                                         {/*    <Button onClick={handleOpen}>Open modal</Button>*/}
                                                         {/*    <Modal*/}
